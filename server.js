@@ -46,12 +46,7 @@ app.post('/session', function(req, res) {
 app.get('/user', function(req, res) {
 
 	var token = req.headers['x-auth'];
-
-	console.log(token);
-
 	var decoded = jwt.decode(token, secretKey);
-
-	console.log(decoded);
 	
 	User.findOne({username: decoded.username}, function(err, user) {
 
