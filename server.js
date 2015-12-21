@@ -1,12 +1,13 @@
 var express = require('express');
 var jwt = require('jwt-simple');
 var _ = require('lodash');
+var bcrypt = require('bcrypt');
 
 var app = express();
 
 app.use(require('body-parser').json());
 
-var users = [{username: 'user', password: 'pass'}];
+var users = [{username: 'user', password: '$2a$10$VtTT4D/oMAnYyrHwFyx8hOBkeutbIXM3gC/k4eATBV9rzrQgIschu'}];
 var secretKey = 'mySecret';
 
 function findUserByUsername(username) {
@@ -14,22 +15,23 @@ function findUserByUsername(username) {
 	return _.find(users, {username: username});
 }
 
-function validateUser(user, password) {
+function validateUser(user, password, callback) {
 
-	return user.password === password;
+	bcrypt.compare(password, user.password, callback);
 }
 
 app.post('/session', function(req, res) {
 
 	var user = findUserByUsername(req.body.username);
 
-	if (!validateUser(user, req.body.password)) {
+	validateUser(user, req.body.password, function(err, valid) {
 
-		res.status(401);
-	}
+		if (err || !valid) return res.status(401);
 
-	var token = jwt.encode({username: user.username}, secretKey);
-	res.json(token);
+		var token = jwt.encode({username: user.username}, secretKey);
+
+		res.json(token);
+	});
 });
 
 app.get('/user', function(req, res) {
