@@ -1,0 +1,25 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "practice for jwt based authorization with express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewgaze/auth_practice.git"
+  },
+  "author": "Andrew McGarrity <adrmcgarrity@gmail.com> (@drewgaze)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drewgaze/auth_practice/issues"
+  },
+  "homepage": "https://github.com/drewgaze/auth_practice#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "jwt-simple": "^0.4.0",
+    "lodash": "^3.10.1"
+  }
+}
